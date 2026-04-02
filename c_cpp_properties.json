@@ -1,0 +1,6 @@
+CompileFlags:
+  Add:
+    - "-Ilibopencm3/include"
+    - "-Iapp/inc"
+    - "-DSTM32F4"
+    - "--target=arm-none-eabi"
