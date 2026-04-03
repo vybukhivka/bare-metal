@@ -23,7 +23,7 @@ int main(void) {
 	timer_pwm_set_duty_cycle(duty_cycle);
 
 	while (1) {
-		if (system_get_ticks() - start_time >= 1000) {
+		if (system_get_ticks() - start_time >= 10) {
 			duty_cycle += 1.0f;
 			if (duty_cycle > 100.0f) {
 				duty_cycle = 0.0f;

@@ -27,7 +27,7 @@ void timer_setup(void) {
 	timer_set_period(TIM2, ARR_VALUE - 1);
 }
 
-void timer_pwn_set_duty_cycle(float duty_cycle) {
+void timer_pwm_set_duty_cycle(float duty_cycle) {
 	// duty cycle = (crr / arr) * 100
 	// duty cycle / 100 = crr / arr
 	// ccr = arr * (duty cycle / 100)

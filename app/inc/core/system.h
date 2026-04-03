@@ -1,5 +1,5 @@
-#ifndef INC_SYSTEM_H
-#define INC_SYSTEM_H
+#ifndef INC_TIMER_H
+#define INC_TIMER_H
 
 #include <stdint.h>
 
