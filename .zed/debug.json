@@ -1,20 +1,26 @@
 [
 	{
 		"label": "STM32: OpenOCD Debug",
+		"adapter": "GDB",
 		"request": "launch",
-		"adapter": "CodeLLDB",
-		"program": "/home/computa/Dev/bare-metal/app/firmware.elf",
-		"cwd": "/home/computa/Dev/bare-metal/app",
-		"preLaunchTask": "build_debug",
-		"stopOnEntry": true,
-		"targetCreateCommands": [
-			"target create /home/computa/Dev/bare-metal/app/firmware.elf",
-		],
-		"processCreateCommands": [
-			"gdb-remote localhost:3333",
+		"command": "arm-none-eabi-gdb",
+		"cwd": "$ZED_WORKTREE_ROOT",
+		"tcp_connection": {
+			"host": "127.0.0.1",
+			"port": 3333,
+			"timeout": 5000,
+		},
+		"args": [
+			"--interpreter=dap",
+			"-ex",
+			"file /home/computa/Dev/bare-metal/app/firmware.elf",
+			"-ex",
+			"target extended-remote :3333",
+			"-ex",
 			"monitor reset halt",
+			"-ex",
 			"load",
-			"monitor reset halt",
 		],
+		"build": "Flash STM32",
 	},
 ]
