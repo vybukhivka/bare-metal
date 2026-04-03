@@ -1,0 +1,14 @@
+Language: Cpp
+BasedOnStyle: LLVM
+IndentWidth: 4
+TabWidth: 4
+UseTab: Never
+
+# This is the "Magic" line for your #defines
+AlignConsecutiveMacros: true
+
+# Optional: This aligns '=' in variable assignments
+AlignConsecutiveAssignments: true
+
+# Optional: This aligns function parameters
+AlignTrailingComments: true
