@@ -1,17 +1,19 @@
 CompileFlags:
-  Add:
-    [
-      "-DSTM32L4",
-      "-D__ARM_ARCH_7EM__",
-      "-I./app/inc",
-      "-I./bootloader/inc",
-      "-I./libopencm3/include",
-      "-std=c99",
-      "--target=arm-none-eabi",
-      "-mcpu=cortex-m4",
-      "-mthumb",
-      "-mfloat-abi=hard",
-      "-mfpu=fpv4-sp-d16",
-    ]
-  # This points clangd to your Fedora ARM toolchain headers
-  Compiler: /usr/bin/arm-none-eabi-gcc
+    Add:
+        - "-DSTM32L4"
+        - "-D__ARM_ARCH_7EM__"
+        # MS "includePath" translation:
+        - "-Iapp/inc"
+        - "-Iapp/inc/core"
+        - "-Ibootloader/inc"
+        - "-Ilibopencm3/include"
+        # Compiler settings:
+        - "-std=c99"
+        - "--target=arm-none-eabi"
+        - "-mcpu=cortex-m4"
+        - "-mfloat-abi=hard"
+    # This replaces "compilerPath" and "intelliSenseMode"
+    Compiler: /usr/bin/arm-none-eabi-gcc
+
+Diagnostics:
+    UnusedIncludes: Strict

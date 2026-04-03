@@ -56,6 +56,8 @@ CSTD		?= -std=c99
 # Source files
 
 OBJS		+= $(SRC_DIR)/$(BINARY).o
+OBJS		+= $(SRC_DIR)/system.o
+# OBJS		+= $(SHARED_SRC_DIR)/core/system.o
 # OBJS		+= $(SRC_DIR)/bootloader.o
 # OBJS		+= $(SRC_DIR)/timer.o
 # OBJS		+= $(SRC_DIR)/info.o
