@@ -1,0 +1,18 @@
+[
+	{
+		"label": "build_bootloader",
+		"command": "make bin",
+		"cwd": "~/Dev/bare-metal/bootloader",
+	},
+	{
+		"label": "build_debug",
+		"command": "make bin",
+		"cwd": "~/Dev/bare-metal/app",
+	},
+	{
+		"label": "Flash STM32",
+		"command": "openocd -f interface/stlink.cfg -f target/stm32l4x.cfg -c \"init; program firmware.elf verify reset exit\"",
+		"reveal": "always",
+		"cwd": "~/Dev/bare-metal/app",
+	},
+]

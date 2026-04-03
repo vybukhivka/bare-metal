@@ -1,0 +1,20 @@
+[
+	{
+		"label": "STM32: OpenOCD Debug",
+		"request": "launch",
+		"adapter": "CodeLLDB",
+		"program": "/home/computa/Dev/bare-metal/app/firmware.elf",
+		"cwd": "/home/computa/Dev/bare-metal/app",
+		"preLaunchTask": "build_debug",
+		"stopOnEntry": true,
+		"targetCreateCommands": [
+			"target create /home/computa/Dev/bare-metal/app/firmware.elf",
+		],
+		"processCreateCommands": [
+			"gdb-remote localhost:3333",
+			"monitor reset halt",
+			"load",
+			"monitor reset halt",
+		],
+	},
+]

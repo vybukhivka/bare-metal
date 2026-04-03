@@ -1,0 +1,17 @@
+CompileFlags:
+  Add:
+    [
+      "-DSTM32L4",
+      "-D__ARM_ARCH_7EM__",
+      "-I./app/inc",
+      "-I./bootloader/inc",
+      "-I./libopencm3/include",
+      "-std=c99",
+      "--target=arm-none-eabi",
+      "-mcpu=cortex-m4",
+      "-mthumb",
+      "-mfloat-abi=hard",
+      "-mfpu=fpv4-sp-d16",
+    ]
+  # This points clangd to your Fedora ARM toolchain headers
+  Compiler: /usr/bin/arm-none-eabi-gcc
