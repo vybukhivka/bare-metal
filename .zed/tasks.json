@@ -15,4 +15,9 @@
 		"reveal": "always",
 		"cwd": "~/Dev/bare-metal/app",
 	},
+	{
+		"label": "Run OpenOCD",
+		"command": "openocd -f interface/stlink.cfg -f target/stm32l4x.cfg",
+		"cwd": "~/Dev/bare-metal/app",
+	},
 ]

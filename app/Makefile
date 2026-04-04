@@ -47,7 +47,8 @@ OBJCOPY		:= $(PREFIX)objcopy
 OBJDUMP		:= $(PREFIX)objdump
 GDB		:= $(PREFIX)gdb
 STFLASH		= $(shell which st-flash)
-OPT		:= -Os
+#OPT    := -Os
+OPT		:= -O0
 DEBUG		:= -ggdb3
 CSTD		?= -std=c99
 
@@ -75,6 +76,8 @@ TGT_CFLAGS	+= $(ARCH_FLAGS)
 TGT_CFLAGS	+= -Wextra -Wshadow -Wimplicit-function-declaration
 TGT_CFLAGS	+= -Wredundant-decls -Wmissing-prototypes -Wstrict-prototypes
 TGT_CFLAGS	+= -fno-common -ffunction-sections -fdata-sections
+# Debugger flags
+TGT_CFLAGS	+= -gdwarf-2 -g3
 
 ###############################################################################
 # C++ flags
