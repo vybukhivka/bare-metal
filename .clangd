@@ -2,7 +2,9 @@ CompileFlags:
     Add:
         - "-xc"
         - "-DSTM32L4"
+        - "-DSTM32L476xx"
         - "-D__ARM_ARCH_7EM__"
+        - "-isystem/usr/arm-none-eabi/include"
         # MS "includePath" translation:
         - "-Ishared/inc"
         - "-Ishared/inc/core"
@@ -10,6 +12,8 @@ CompileFlags:
         - "-Iapp/inc/core"
         - "-Ibootloader/inc"
         - "-Ilibopencm3/include"
+        - "-include"
+        - "libopencm3/cm3/common.h"
         # Compiler settings:
         - "-std=c99"
         - "--target=arm-none-eabi"
