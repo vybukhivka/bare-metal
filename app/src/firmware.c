@@ -24,7 +24,7 @@ int main(void) {
     timer_setup();
 
     uint64_t start_time = system_get_ticks();
-    float duty_cycle    = 0.0f;
+    float    duty_cycle = 0.0f;
 
     timer_pwm_set_duty_cycle(duty_cycle);
 

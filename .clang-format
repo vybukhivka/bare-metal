@@ -4,11 +4,18 @@ IndentWidth: 4
 TabWidth: 4
 UseTab: Never
 
-# This is the "Magic" line for your #defines
+# Aligns the function names/variable names vertically
+# AlignConsecutiveDeclarations: true
+
+# Aligns #defines
 AlignConsecutiveMacros: true
 
-# Optional: This aligns '=' in variable assignments
+# Aligns '=' in variable assignments
 AlignConsecutiveAssignments: true
 
-# Optional: This aligns function parameters
+# Aligns comments at the end of lines
 AlignTrailingComments: true
+
+# Ensures the function parameters stay readable
+AllowAllParametersOfDeclarationOnNextLine: false
+BinPackParameters: false
