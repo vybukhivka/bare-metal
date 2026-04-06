@@ -59,4 +59,4 @@ uint8_t uart_read_byte(void) {
     return data_buffer;
 }
 
-bool uart_data_available(void) { return data_buffer; }
+bool uart_data_available(void) { return data_available; }
