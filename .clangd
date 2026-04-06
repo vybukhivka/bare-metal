@@ -1,21 +1,22 @@
 CompileFlags:
-  Add:
-    - "-xc"
-    - "-DSTM32L4"
-    - "-D__ARM_ARCH_7EM__"
-    # MS "includePath" translation:
-    - "-Ishared/inc"
-    - "-Iapp/inc"
-    - "-Iapp/inc/core"
-    - "-Ibootloader/inc"
-    - "-Ilibopencm3/include"
-    # Compiler settings:
-    - "-std=c99"
-    - "--target=arm-none-eabi"
-    - "-mcpu=cortex-m4"
-    - "-mfloat-abi=hard"
-  # This replaces "compilerPath" and "intelliSenseMode"
-  Compiler: /usr/bin/arm-none-eabi-gcc
+    Add:
+        - "-xc"
+        - "-DSTM32L4"
+        - "-D__ARM_ARCH_7EM__"
+        # MS "includePath" translation:
+        - "-Ishared/inc"
+        - "-Ishared/inc/core"
+        - "-Iapp/inc"
+        - "-Iapp/inc/core"
+        - "-Ibootloader/inc"
+        - "-Ilibopencm3/include"
+        # Compiler settings:
+        - "-std=c99"
+        - "--target=arm-none-eabi"
+        - "-mcpu=cortex-m4"
+        - "-mfloat-abi=hard"
+    # This replaces "compilerPath" and "intelliSenseMode"
+    Compiler: /usr/bin/arm-none-eabi-gcc
 
 Diagnostics:
-  UnusedIncludes: Strict
+    UnusedIncludes: Strict
