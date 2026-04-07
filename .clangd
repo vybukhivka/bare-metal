@@ -21,6 +21,5 @@ CompileFlags:
         - "-mfloat-abi=hard"
     # This replaces "compilerPath" and "intelliSenseMode"
     Compiler: /usr/bin/arm-none-eabi-gcc
-
 Diagnostics:
     UnusedIncludes: Strict

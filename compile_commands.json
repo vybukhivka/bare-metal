@@ -28,11 +28,11 @@
       "-I../shared/inc",
       "-c",
       "-o",
-      "src/firmware.o",
-      "src/firmware.c"
+      "../shared/src/core/uart.o",
+      "../shared/src/core/uart.c"
     ],
     "directory": "/home/computa/Dev/bare-metal/app",
-    "file": "/home/computa/Dev/bare-metal/app/src/firmware.c",
-    "output": "/home/computa/Dev/bare-metal/app/src/firmware.o"
+    "file": "/home/computa/Dev/bare-metal/shared/src/core/uart.c",
+    "output": "/home/computa/Dev/bare-metal/shared/src/core/uart.o"
   }
 ]
