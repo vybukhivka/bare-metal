@@ -2,6 +2,8 @@
 #define INC_COMMS_H
 
 #include <stdbool.h>
+#include <stdint.h>
+
 #define PACKET_DATA_LENGTH (16)
 
 typedef struct comms_packet_t {
