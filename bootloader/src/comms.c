@@ -1,5 +1,7 @@
 #include "comms.h"
+#include "core/crc8.h"
 #include "core/uart.h"
+#include <stdbool.h>
 #include <stdint.h>
 
 typedef enum comms_state_t {
@@ -12,34 +14,96 @@ static comms_state_t state = CommsState_Length;
 static uint8_t data_byte_count = 0;
 
 static comms_packet_t temp_packet = {.length = 0, .data = {0}, .crc = 0};
+static comms_packet_t retx_packet = {.length = 0, .data = {0}, .crc = 0};
+static comms_packet_t ack_packet = {.length = 0, .data = {0}, .crc = 0};
+static comms_packet_t last_transmitted_packet = {.length = 0,
+                                                 .data = {0},
+                                                 .crc = 0};
 
-void comms_setup(void) {}
+static bool comms_is_single_byte_packet(comms_packet_t *packet, uint8_t byte) {
+    if (packet->length != 1) {
+        return false;
+    }
+
+    if (packet->data[0] != PACKET_RETX_DATA0) {
+        return false;
+    }
+
+    for (uint8_t i = 1; i < PACKET_DATA_LENGTH; i++) {
+        if (packet->data[i] != 0xff) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+void comms_setup(void) {
+    retx_packet.length = 1;
+    retx_packet.data[0] = PACKET_RETX_DATA0;
+    for (uint8_t i = 0; i < PACKET_DATA_LENGTH; i++) {
+        retx_packet.data[i] = 0xff;
+    }
+    retx_packet.crc = comms_compute_crc(&retx_packet);
+
+    ack_packet.length = 1;
+    ack_packet.data[0] = PACKET_ACK_DATA0;
+    for (uint8_t i = 0; i < PACKET_DATA_LENGTH; i++) {
+        ack_packet.data[i] = 0xff;
+    }
+    ack_packet.crc = comms_compute_crc(&ack_packet);
+}
 
 void comms_update(void) {
-	while (uart_data_available()) {
-		switch (state) {
-			case CommsState_Length: {
-				temp_packet.length = uart_read_byte();
-				state = CommsState_Data;
-			} break;
-			case CommsState_Data: {
-				temp_packet.data[data_byte_count++] = uart_read_byte();
-				if (data_byte_count >= PACKET_DATA_LENGTH) {
-					data_byte_count = 0;
-					state = CommsState_CRC;
-				}
-			} break;
-			case CommsState_CRC: {
-				temp_packet.crc = uart_read_byte();
-			} break;
-			default: {
-				state = CommsState_Length;
-			}
-		}
-	}
+    while (uart_data_available()) {
+        switch (state) {
+        case CommsState_Length: {
+            temp_packet.length = uart_read_byte();
+            state = CommsState_Data;
+        } break;
+        case CommsState_Data: {
+            temp_packet.data[data_byte_count++] = uart_read_byte();
+            if (data_byte_count >= PACKET_DATA_LENGTH) {
+                data_byte_count = 0;
+                state = CommsState_CRC;
+            }
+        } break;
+        case CommsState_CRC: {
+            temp_packet.crc = uart_read_byte();
+
+            if (temp_packet.crc != comms_compute_crc(&temp_packet)) {
+                comms_write(&retx_packet);
+                state = CommsState_Length;
+                break;
+            }
+
+            if (comms_is_single_byte_packet(&temp_packet, PACKET_RETX_DATA0)) {
+                comms_write(&last_transmitted_packet);
+                state = CommsState_Length;
+                break;
+            }
+
+            if (comms_is_single_byte_packet(&temp_packet, PACKET_ACK_DATA0)) {
+                state = CommsState_Length;
+                break;
+            }
+
+            // comms_write(comms_packet_t *packet)
+
+        } break;
+        default: {
+            state = CommsState_Length;
+        }
+        }
+    }
 }
 
 bool comms_packets_available(void) {}
 
 void comms_write(comms_packet_t *packet) {}
+
 void comms_read(comms_packet_t *packet) {}
+
+uint8_t comms_compute_crc(comms_packet_t *packet) {
+    return crc8((uint8_t *)&temp_packet, PACKET_DATA_LENGTH - PACKET_CRC_BYTES);
+}
